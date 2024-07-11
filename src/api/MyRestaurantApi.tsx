@@ -80,3 +80,48 @@ export const useCreateMyRestaurant = () => {
 
   return { createRestaurant, isLoading };
 };
+
+// Hook to update a restaurant
+export const useUpdateMyRestaurant = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  // Function that makes the request to update a restaurant and returns a Restaurant object
+  const useUpdateMyRestaurantRequest = async (
+    restaurantFormData: FormData
+  ): Promise<Restaurant> => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: restaurantFormData,
+    });
+
+    // Check if the request was successful
+    if (!response.ok) {
+      throw new Error("Failed to update restaurant");
+    }
+
+    return response.json();
+  };
+
+  //Use Mutation to manage the update restaurant request
+  const {
+    mutate: updateRestaurant,
+    isLoading,
+    isSuccess,
+    error,
+  } = useMutation(useUpdateMyRestaurantRequest);
+
+  //Show toast messages based on the request status
+  if (isSuccess) {
+    toast.success("Restaurant updated");
+  }
+  if (error) {
+    toast.error("Failed to update restaurant");
+  }
+
+  return { updateRestaurant, isLoading };
+};
