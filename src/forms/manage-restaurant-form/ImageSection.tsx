@@ -26,15 +26,7 @@ const ImageSection = () => {
 
       <div className="flex flex-col gap-8  md:w-[50%]">
         {/* Image Selection Field */}
-        {existingImageUrl && (
-          <AspectRatio ratio={16 / 9}>
-            {/* object-cover: Make sure image not squashed */}
-            <img
-              src={existingImageUrl}
-              className="rounded-md h-full w-full object-cover"
-            />
-          </AspectRatio>
-        )}
+
         <FormField
           control={control}
           name="imageFile"
@@ -57,6 +49,15 @@ const ImageSection = () => {
             </FormItem>
           )}
         />
+        {existingImageUrl && (
+          <AspectRatio ratio={16 / 9}>
+            {/* object-cover: Make sure image not squashed */}
+            <img
+              src={existingImageUrl}
+              className="rounded-md h-full w-full object-cover"
+            />
+          </AspectRatio>
+        )}
       </div>
     </div>
   );
