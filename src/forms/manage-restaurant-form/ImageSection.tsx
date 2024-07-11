@@ -6,10 +6,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useFormContext } from "react-hook-form";
 
 const ImageSection = () => {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+  //access the imageUrl field value which is stored in the form
+  const existingImageUrl = watch("imageUrl");
+
   return (
     <div className="space-y-2">
       <div>
@@ -20,8 +24,17 @@ const ImageSection = () => {
         </FormDescription>
       </div>
 
-      <div className="flex flex-col gap-8 w-[50%]">
-        {/* Image Selection Fiel=d */}
+      <div className="flex flex-col gap-8  md:w-[50%]">
+        {/* Image Selection Field */}
+        {existingImageUrl && (
+          <AspectRatio ratio={16 / 9}>
+            {/* object-cover: Make sure image not squashed */}
+            <img
+              src={existingImageUrl}
+              className="rounded-md h-full w-full object-cover"
+            />
+          </AspectRatio>
+        )}
         <FormField
           control={control}
           name="imageFile"

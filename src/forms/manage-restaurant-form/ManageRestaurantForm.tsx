@@ -9,6 +9,8 @@ import MenuSection from "./MenuSection";
 import ImageSection from "./ImageSection";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
+import { Restaurant } from "@/types";
+import { useEffect } from "react";
 
 // Define the schema for form validaiton
 const formSchema = z.object({
@@ -47,12 +49,13 @@ const formSchema = z.object({
 type RestaurantFormData = z.infer<typeof formSchema>;
 //prop types
 type Props = {
+  restaurant?: Restaurant; //Restaurant data that might be undefined since user not created
   onSave: (restaurantFormData: FormData) => void; //Function to save the form data
   isLoading: boolean; //Flag to show loading spinner
 };
 
 // Form for creating and managing restaurant info
-const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
+const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
   // Use the useForm hook to create a form with the schema
   // Manages all the form data
   const form = useForm<RestaurantFormData>({
@@ -62,6 +65,36 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
       menuItems: [{ name: "", price: 0 }],
     },
   });
+
+  //Populate the form with restaurant data if available
+  //Data will be updated with react hook form
+  useEffect(() => {
+    if (!restaurant) {
+      return;
+    }
+
+    const deliveryPriceFormatted = parseInt(
+      (restaurant.deliveryPrice / 100).toFixed(2)
+    );
+
+    //map((item) => ({}）returns an object instead of a function
+    const menuItemsFormatted = restaurant.menuItems.map((item) => ({
+      ...item, //copy current item properties
+      price: parseInt((item.price / 100).toFixed(2)), //replace price of each item with formatted price
+    }));
+
+    //Update the restaurant object with formatted data
+    const updatedRestaurant = {
+      ...restaurant, //copy existing restaurant object properties
+      //overwrite the following properties
+      deliveryPrice: deliveryPriceFormatted,
+      menuItems: menuItemsFormatted,
+    };
+
+    //reset the form with updated restaurant data
+    //form included all the properties of the restaurant object
+    form.reset(updatedRestaurant);
+  }, [form, restaurant]);
 
   //Function to call when form is submitted
   const onSubmit = (formDataJson: RestaurantFormData) => {
@@ -94,7 +127,7 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
     //Append image file
     formData.append("imageFile", formDataJson.imageFile);
 
-    //
+    //send data to createRestaurant API
     onSave(formData);
   };
 
