@@ -25,7 +25,7 @@ const CuisinesSection = () => {
           name="cuisines"
           render={({ field }) => (
             <FormItem>
-              <div className="grid-cols-2 md:grid-cols-5 gap-1">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
                 {cuisineList.map((cuisineItem) => (
                   <CuisineCheckbox cuisine={cuisineItem} field={field} />
                 ))}

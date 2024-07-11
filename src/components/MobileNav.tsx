@@ -21,6 +21,7 @@ const MobileNav = () => {
       <SheetContent className="space-y-3">
         <SheetTitle>
           {isAuthenticated ? (
+            // Email Header
             <span className="flex items-center font-bold gap-2">
               <CircleUserRound className="text-orange-500" />
               {user?.email}
@@ -34,8 +35,10 @@ const MobileNav = () => {
 
         <SheetDescription className="flex flex-col gap-4">
           {isAuthenticated ? (
+            // Navigation Links
             <MobileNavLinks />
           ) : (
+            // Login Button
             <Button
               onClick={async () => loginWithRedirect()}
               className="flex-1 font-bold bg-orange-500"

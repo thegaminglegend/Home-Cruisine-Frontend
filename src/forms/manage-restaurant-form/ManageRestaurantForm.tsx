@@ -44,7 +44,7 @@ const formSchema = z.object({
 });
 
 //form property types
-type restaurantFormData = z.infer<typeof formSchema>;
+type RestaurantFormData = z.infer<typeof formSchema>;
 //prop types
 type Props = {
   onSave: (restaurantFormData: FormData) => void; //Function to save the form data
@@ -55,7 +55,7 @@ type Props = {
 const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
   // Use the useForm hook to create a form with the schema
   // Manages all the form data
-  const form = useForm<restaurantFormData>({
+  const form = useForm<RestaurantFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       cuisines: [],
@@ -64,8 +64,38 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
   });
 
   //Function to call when form is submitted
-  const onSubmit = (formDataJson: restaurantFormData) => {
-    //Conver formDataJson to a new FormData Object
+  const onSubmit = (formDataJson: RestaurantFormData) => {
+    //Convert formDataJson js object to a new FormData Object
+    const formData = new FormData();
+
+    formData.append("restaurantName", formDataJson.restaurantName);
+    formData.append("city", formDataJson.city);
+    formData.append("country", formDataJson.country);
+    //Store money as lowest unit (cents) for consistency
+    formData.append(
+      "deliveryPrice",
+      (formDataJson.deliveryPrice * 100).toString()
+    );
+    formData.append(
+      "estimatedDeliveryTime",
+      formDataJson.estimatedDeliveryTime.toString()
+    );
+    //Append cuisines and menuItems as arrays
+    formDataJson.cuisines.forEach((cuisine, index) =>
+      formData.append(`cuisines[${index}]`, cuisine)
+    );
+    formDataJson.menuItems.forEach((menuItem, index) => {
+      formData.append(`menuItems[${index}][name]`, menuItem.name);
+      formData.append(
+        `menuItems[${index}][price]`,
+        (menuItem.price * 100).toString()
+      );
+    });
+    //Append image file
+    formData.append("imageFile", formDataJson.imageFile);
+
+    //
+    onSave(formData);
   };
 
   return (
