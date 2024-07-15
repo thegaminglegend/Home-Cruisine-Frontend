@@ -26,6 +26,16 @@ export type Restaurant = {
   estimatedDeliveryTime: number;
   cuisines: string[];
   menuItems: MenuItem[];
-  imageURL: string;
+  imageUrl: string;
   lastUpdated: string;
+};
+
+//Type for
+export type RestaurantSearchResponse = {
+  data: Restaurant[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
 };
