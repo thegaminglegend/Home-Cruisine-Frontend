@@ -16,6 +16,7 @@ export const useSearchRestaurants = (
     params.set("page", searchState.page.toString());
     //join the selected cuisines array with a comma as a string
     params.set("selectedCuisines", searchState.selectedCuisines.join(","));
+    params.set("sortOption", searchState.sortOption);
 
     //After ? indicates the query string
     const response = await fetch(
