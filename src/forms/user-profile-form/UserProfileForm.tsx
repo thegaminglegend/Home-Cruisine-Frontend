@@ -26,16 +26,24 @@ const formSchema = z.object({
 });
 
 //Use zod to automatically determine the type based on the schema
-type UserFormData = z.infer<typeof formSchema>;
+export type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
   onSave: (userProfileData: UserFormData) => void; //Define function type
   isLoading: boolean;
   currentUser: User; //Define user type
+  title?: string;
+  buttonText?: string;
 };
 
 // Form for showing and updating user info
-const UserProfileForm = ({ isLoading, onSave, currentUser }: Props) => {
+const UserProfileForm = ({
+  isLoading,
+  onSave,
+  currentUser,
+  title = "User Profile", // Default title
+  buttonText = "Submit", // Default button text
+}: Props) => {
   // Use the useForm hook to create a form with the schema
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema), // Define Zod validation schema
@@ -55,7 +63,7 @@ const UserProfileForm = ({ isLoading, onSave, currentUser }: Props) => {
         className="space-y-4 bg-gray-50 rounded-lg p-3 md:p-10"
       >
         <div>
-          <h2 className="text-2xl font-bold">User Profile Form</h2>
+          <h2 className="text-2xl font-bold">{title}</h2>
           <FormDescription>View and update your user profile</FormDescription>
         </div>
 
@@ -139,7 +147,7 @@ const UserProfileForm = ({ isLoading, onSave, currentUser }: Props) => {
           <LoadingButton />
         ) : (
           <Button type="submit" className="bg-orange-500">
-            Submit
+            {buttonText}
           </Button>
         )}
       </form>
