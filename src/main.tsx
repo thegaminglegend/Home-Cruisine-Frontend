@@ -28,7 +28,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           {/* All routes components*/}
           <AppRoutes />
           {/* For handling notifications on top level*/}
-          <Toaster visibleToasts={1} position="top-right" richColors />
+          <Toaster
+            visibleToasts={1}
+            position="top-right"
+            richColors
+            duration={1000}
+          />
         </Auth0ProviderNav>
       </QueryClientProvider>
     </Router>

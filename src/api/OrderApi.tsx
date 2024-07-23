@@ -43,7 +43,12 @@ export const useGetMyOrders = () => {
 
   const { data: orders, isLoading } = useQuery(
     "fetchMyOrders",
-    getMyOrdersRequest
+    getMyOrdersRequest,
+    {
+      //refetch every 5 seconds so that user
+      // could see the updated status of the order without refreshing
+      refetchInterval: 5000,
+    }
   );
 
   return { orders, isLoading };
