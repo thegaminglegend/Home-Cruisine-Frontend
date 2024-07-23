@@ -4,13 +4,13 @@ import MainNav from "./MainNav";
 
 const Header = () => {
   return (
-    <div className="border-b-2 border-b-orange-500 py-6">
+    <div className="border-b-2 border-b-mainColor py-6">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
 
         <Link
           to="/"
-          className="text-3xl font-bold tracking-tight text-orange-500"
+          className="text-3xl font-bold tracking-tight text-mainColor"
         >
           Test
         </Link>

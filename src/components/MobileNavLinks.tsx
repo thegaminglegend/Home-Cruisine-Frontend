@@ -10,7 +10,7 @@ const MobileNavLinks = () => {
       <SheetClose asChild>
         <Link
           to="/order-status"
-          className="flex bg-white items-center font-bold hover:text-orange-500"
+          className="flex bg-white items-center font-bold hover:text-mainColor"
         >
           Order Status
         </Link>
@@ -18,7 +18,7 @@ const MobileNavLinks = () => {
       <SheetClose asChild>
         <Link
           to="/user-profile"
-          className="flex bg-white items-center font-bold hover:text-orange-500"
+          className="flex bg-white items-center font-bold hover:text-mainColor"
         >
           User Profile
         </Link>
@@ -26,7 +26,7 @@ const MobileNavLinks = () => {
       <SheetClose asChild>
         <Link
           to="/manage-restaurant"
-          className="flex bg-white items-center font-bold hover:text-orange-500"
+          className="flex bg-white items-center font-bold hover:text-mainColor"
         >
           Manage Restaurant
         </Link>

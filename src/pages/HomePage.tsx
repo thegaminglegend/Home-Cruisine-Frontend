@@ -18,7 +18,7 @@ const HomePage = () => {
       {/* -mt: negative margin top */}
       {/* search bar card */}
       <div className="md:px-32 bg-white rounded-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-16">
-        <h1 className="text-5xl font-bold tracking-tight text-orange-600">
+        <h1 className="text-5xl font-bold tracking-tight text-secondaryColor">
           Testing testing testing
         </h1>
         <span className="text-xl">Testing testing testing</span>

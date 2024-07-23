@@ -38,7 +38,7 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
   //if not authenticated, show login button
   if (!isAuthenticated) {
     return (
-      <Button className="bg-orange-500 flex-1" onClick={onLogin}>
+      <Button className="bg-mainColor flex-1" onClick={onLogin}>
         Log in to check out
       </Button>
     );
@@ -53,7 +53,7 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
     <Dialog>
       {/* anything within trigger will open up dialog */}
       <DialogTrigger asChild>
-        <Button className="bg-orange-500 flex-1" disabled={disabled}>
+        <Button className="bg-mainColor flex-1" disabled={disabled}>
           Go to Checkout
         </Button>
       </DialogTrigger>
