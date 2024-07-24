@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <div className="bg-mainColor py-10">
@@ -6,8 +8,9 @@ const Footer = () => {
           Home Cuisine
         </span>
         <span className="text-white font-bold tracking-tight flex gap-4">
-          <span>Testing test test</span>
-          <span>Testing test test</span>
+          <Link to="https://moseszhao.com" className="text-2xl">
+            mosesZhao.com
+          </Link>
         </span>
       </div>
     </div>
